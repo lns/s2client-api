@@ -3,6 +3,7 @@
 #include "sc2api/sc2_coordinator.h"
 #include "sc2api/sc2_agent.h"
 #include "sc2api/sc2_args.h"
+#include "sc2api/hack.hpp"
 
 #include <vector>
 #include <memory>
@@ -48,7 +49,7 @@ public:
 
 protected:
     template<class T> void Add(const T& test) {
-        std::unique_ptr<TestSequence> t = std::make_unique<T>(test);
+        std::unique_ptr<TestSequence> t = hack_make_unique<T>(test);
         t->agent_ = this;
         sequences_.push_back(std::move(t));
     }

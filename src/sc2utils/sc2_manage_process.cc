@@ -73,6 +73,15 @@ bool HasExtension (const std::string& map_name, const std::string& extention) {
     if (map_name.size() < extention.size())
         return false;
 
+    int i=0;
+    for (auto iter=map_name.end() - extention.size(); iter!=map_name.end(); iter++) {
+      if (tolower(*iter) != tolower(extention[i]))
+        return false;
+      else
+        i++;
+    }
+    return true;
+    /* This requires C++14
     return std::equal(
         map_name.end() - extention.size(),
         map_name.end(),
@@ -82,6 +91,7 @@ bool HasExtension (const std::string& map_name, const std::string& extention) {
             return tolower(a) == tolower(b);
         }
     );
+    */
 }
 
 #ifdef _WIN32

@@ -2,6 +2,7 @@
 #include "sc2api/sc2_unit.h"
 #include "sc2api/sc2_interfaces.h"
 #include "sc2api/sc2_control_interfaces.h"
+#include "sc2api/hack.hpp"
 
 namespace sc2 {
 
@@ -317,8 +318,8 @@ AgentControlImp::AgentControlImp(Agent* agent, ControlInterface* control_interfa
     control_interface_(control_interface),
     actions_(nullptr),
     agent_(agent) {
-    actions_ = std::make_unique<ActionImp>(control_interface_->Proto(), *control_interface);
-    actions_feature_layer_ = std::make_unique<ActionFeatureLayerImp>(control_interface_->Proto(), *control_interface);
+    actions_ = hack_make_unique<ActionImp>(control_interface_->Proto(), *control_interface);
+    actions_feature_layer_ = hack_make_unique<ActionFeatureLayerImp>(control_interface_->Proto(), *control_interface);
 }
 
 bool AgentControlImp::Restart() {

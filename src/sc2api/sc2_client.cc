@@ -4,6 +4,7 @@
 #include "sc2api/sc2_control_interfaces.h"
 #include "sc2api/sc2_proto_to_pods.h"
 #include "sc2api/sc2_game_settings.h"
+#include "sc2api/hack.hpp"
 
 #include "sc2utils/sc2_manage_process.h"
 
@@ -1450,9 +1451,9 @@ ControlImp::ControlImp(Client& client) :
     query_imp_(nullptr),
     debug_imp_(nullptr) {
     proto_.SetControl(this);
-    observation_imp_ = std::make_unique<ObservationImp>(proto_, observation_, response_, *this);
-    query_imp_ = std::make_unique<QueryImp>(proto_, *this, *observation_imp_);
-    debug_imp_= std::make_unique<DebugImp>(proto_, *observation_imp_, *this);
+    observation_imp_ = hack_make_unique<ObservationImp>(proto_, observation_, response_, *this);
+    query_imp_ = hack_make_unique<QueryImp>(proto_, *this, *observation_imp_);
+    debug_imp_= hack_make_unique<DebugImp>(proto_, *observation_imp_, *this);
 }
 
 ControlImp::~ControlImp() {
